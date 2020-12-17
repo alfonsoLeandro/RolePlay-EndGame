@@ -11,7 +11,7 @@ namespace Library.Characters.Heroes
 
         public override string ToString()
         {
-            return "Dwarf";
+            return "Loyal dwarf";
         }
     }
 }

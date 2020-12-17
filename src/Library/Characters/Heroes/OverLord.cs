@@ -3,15 +3,15 @@ using Library.Items;
 
 namespace Library.Characters.Heroes
 {
-    public class Elf : AbstractHero
+    public class OverLord : AbstractHero
     {
-        public Elf(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
+        public OverLord(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }
 
         public override string ToString()
         {
-            return "Trusty elf";
+            return "Overlord";
         }
     }
 }

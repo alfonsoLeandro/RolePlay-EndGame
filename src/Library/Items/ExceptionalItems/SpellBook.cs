@@ -5,7 +5,8 @@ namespace Library.Items.ExceptionalItems
     public class SpellBook : AbstractItem
     {
         /// <summary>
-        /// Genera un nuevo spell book, el mismo puede contener
+        /// Genera un nuevo spell book, el mismo puede contener valores de defensa,
+        /// ataque y salud entre -5 y 20
         /// </summary>
         public SpellBook() : base(false, true, RandomStat(), RandomStat(), RandomStat())
         {

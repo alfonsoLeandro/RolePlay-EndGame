@@ -1,4 +1,4 @@
-﻿namespace Library.Items.Common_items
+﻿namespace Library.Items.CommonItems
 {
     public class SharpShield : AbstractItem
     {

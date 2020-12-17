@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Library.Characters.Heroes;
+using Library.Characters.Villains;
 using Library.Exceptions;
 using Library.Items;
 
@@ -43,8 +44,9 @@ namespace Library.Characters
         {
             //Guardo el bool que verifica si este item es un wizard
             //para no tener que verificarlo en cada repeticion del for.
-            //Rompo con patrón polimorfismo ya que el wizard es el único que puede obtener items de timpo mágico
-            var wizard = GetType() == typeof(Wizard);
+            //Rompo con patrón polimorfismo ya que el wizard y el brujo son
+            //los únicos que pueden obtener items de timpo mágico
+            var wizard = GetType() == typeof(Wizard) || GetType() == typeof(Witch);
             foreach (var item in items)
             {
                 if (wizard || !item.IsMagic)
@@ -58,9 +60,9 @@ namespace Library.Characters
         public void AddItem(AbstractItem abstractItem)
         {
             //Rompo con patrón polimorfismo ya que el wizard es el único que puede obtener items de timpo mágico
-            if (GetType() != typeof(Wizard) && abstractItem.IsMagic) 
+            if ((GetType() != typeof(Wizard) && GetType() != typeof(Witch)) && abstractItem.IsMagic) 
                 throw new CannotAddItemException(
-                    "No puedes agregar un item mágico a un personaje que no sea un Wizard");
+                    "No puedes agregar un item mágico a un personaje que no sea un Wizard o un Witch");
             
             Items.Add(abstractItem);
             UpdateStats();

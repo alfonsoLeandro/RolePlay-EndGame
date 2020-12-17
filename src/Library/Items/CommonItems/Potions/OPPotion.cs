@@ -1,4 +1,4 @@
-﻿namespace Library.Items.Common_items.Potions
+﻿namespace Library.Items.CommonItems.Potions
 {
     public class OPPotion : AbstractItem
     {

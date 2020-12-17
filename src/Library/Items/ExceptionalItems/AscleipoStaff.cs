@@ -2,7 +2,6 @@
 {
     public class AscleipoStaff : AbstractItem
     {
-        //TODO
         public AscleipoStaff(bool isCompound, bool isMagic, int defenseValue, int damageValue, int healthValue) : base(isCompound, isMagic, defenseValue, damageValue, healthValue)
         {
         }
