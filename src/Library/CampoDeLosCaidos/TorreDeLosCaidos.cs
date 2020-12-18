@@ -13,6 +13,8 @@ namespace Library.CampoDeLosCaidos
             Observers = new List<IObserver>();
         }
         
+        
+        
         public void Subscribe(IObserver observer)
         {
             if (!Observers.Contains(observer))

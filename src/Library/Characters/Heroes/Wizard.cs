@@ -5,7 +5,7 @@ namespace Library.Characters.Heroes
 {
     public class Wizard : AbstractHero
     {
-        public Dictionary<string,string> LibroDeLaSabiduria { get; }
+        public static Dictionary<string,string> LibroDeLaSabiduria { get; } = new Dictionary<string, string>();
         
         public Wizard(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
@@ -13,7 +13,6 @@ namespace Library.Characters.Heroes
         
         public Wizard(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
-            LibroDeLaSabiduria = new Dictionary<string, string>();
         }
         
         
