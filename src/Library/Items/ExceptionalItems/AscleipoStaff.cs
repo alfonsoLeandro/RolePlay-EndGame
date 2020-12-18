@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.ExceptionalItems
 {
-    public class AscleipoStaff : AbstractItem
+    public class AscleipoStaff : NonMagicItem
     {
-        public AscleipoStaff(bool isCompound, bool isMagic, int defenseValue, int damageValue, int healthValue) : base(isCompound, isMagic, defenseValue, damageValue, healthValue)
+        public AscleipoStaff(int defenseValue, int damageValue, int healthValue) : base(defenseValue, damageValue, healthValue)
         {
         }
 
@@ -10,5 +10,17 @@
         {
             return "Ascleipo staff";
         }
+        
+        //Combinations: staff+NONMAGIC
+
+        public CompoundNonMagicItem Combine(MagicItem item)
+        {
+            return new CompoundNonMagicItem(
+                this.DefenseValue+item.DefenseValue,
+                this.DamageValue+item.DamageValue,
+                this.HealthValue+item.HealthValue,
+                "Ascleipo staff and "+item.ToString());
+        }    
+        
     }
 }

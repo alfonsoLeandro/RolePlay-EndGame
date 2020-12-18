@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.MagicItems
 {
-    public class Fireball : AbstractItem
+    public class Fireball : MagicItem
     {
-        public Fireball(int damageValue) : base(false, true, 0, damageValue, 0)
+        public Fireball(int damageValue) : base(0, damageValue, 0)
         {
         }
 

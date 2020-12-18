@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.ExceptionalItems
 {
-    public class ElementalGem : AbstractItem
+    public class ElementalGem : NonMagicItem
     {
-        public ElementalGem(int defenseValue, int damageValue, int healthValue) : base(false, false, defenseValue, damageValue, healthValue)
+        public ElementalGem(int defenseValue, int damageValue, int healthValue) : base(defenseValue, damageValue, healthValue)
         {
         }
 

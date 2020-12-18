@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.MagicItems
 {
-    public class ProtectingBelt : AbstractItem
+    public class ProtectingBelt : MagicItem
     {
-        public ProtectingBelt(int defenseValue, int healthValue) : base(false, true, defenseValue, 0, healthValue)
+        public ProtectingBelt(int defenseValue, int healthValue) : base(defenseValue, 0, healthValue)
         {
         }
 
