@@ -8,6 +8,7 @@ namespace Library.Encounters
 {
     public class BattleEncounter : IEncounter
     {
+        //TODO: Honor&Glory
         private List<AbstractHero> Heroes { get; }
         private List<AbstractVillain> Villains { get; }
         private ILogger Logger { get; }

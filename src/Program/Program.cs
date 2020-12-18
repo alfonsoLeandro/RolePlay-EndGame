@@ -12,7 +12,7 @@ namespace RolePlay_EndGame
     {
         static void Main(string[] args)
         {
-            RpCore.InitializeInstance(new ConsoleEventLogger());
+            RpCore.Initialize(new ConsoleEventLogger());
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Library
         
         
         
-        public static void InitializeInstance(ILogger logger)
+        public static void Initialize(ILogger logger)
         {
             Instance = new RpCore(logger);
         }

@@ -19,7 +19,8 @@ namespace Library.Tests
         [SetUp]
         public void SetUp()
         {
-            RpCore.InitializeInstance(new ConsoleEventLogger());
+            //Necesitado para que los Encounter no tiren NullPointerException
+            RpCore.Initialize(new ConsoleEventLogger());
         }
         
 

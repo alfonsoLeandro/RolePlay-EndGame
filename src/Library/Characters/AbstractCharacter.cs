@@ -92,6 +92,9 @@ namespace Library.Characters
                             return;
                         }
                     }
+                    //Las ElementalGem por si solas no deberian agregar estadisticas directamente
+                    //al personaje si no a la DarkSword
+                    continue;
                 }  
                 
                 //Rompo nuevamente con polimorfismo para poder agregar la funcion especial
@@ -109,6 +112,9 @@ namespace Library.Characters
                             return;
                         }
                     }
+                    //Los spells por si solos no deberian agregar estadisticas directamente
+                    //al personaje si no al SpellBook
+                    continue;
                 }
 
                 this.Damage += item.DamageValue;
@@ -134,10 +140,6 @@ namespace Library.Characters
             return this.Hp > 0;
         }
 
-        public void AddVp(int vp)
-        {
-            //TODO
-        }
 
         public abstract override string ToString();
 
