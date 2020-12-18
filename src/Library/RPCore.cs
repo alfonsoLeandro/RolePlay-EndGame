@@ -4,8 +4,9 @@ namespace Library
 {
     public class RpCore
     {
-        private static RpCore Instance { get; set; }
+        public static RpCore Instance { get; set; }
         public ILogger Logger { get; }
+        public string ResultsFile { get; set; }
 
         
         private RpCore(ILogger logger)
@@ -13,19 +14,14 @@ namespace Library
             this.Logger = logger;
         }
 
-        
-        
-        
+
+
+
         public static void Initialize(ILogger logger)
         {
             Instance = new RpCore(logger);
         }
         
-        
-        public static RpCore GetInstance()
-        {
-            return Instance;
-        }
         
     }
 }

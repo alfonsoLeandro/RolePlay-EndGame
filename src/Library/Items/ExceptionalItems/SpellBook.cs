@@ -6,6 +6,11 @@ namespace Library.Items.ExceptionalItems
     public class SpellBook : MagicItem
     {
         private List<Spell> Spells { get; } = new List<Spell>();
+
+        public SpellBook() : this(new List<Spell>())
+        {
+        }
+        
         public SpellBook(List<Spell> spells) : base(0, 0, 0)
         {
             foreach (var spell in spells)

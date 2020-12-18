@@ -167,3 +167,52 @@ Cuando el encuentro toma lugar, los héroes batallarán contra los enemigos, de 
 <a name="honor&glory"></a>
 ## 1.iv Campo de los caídos
 TODO
+
+
+<a name="diseño"></a>
+## 2. Diseño e implementación
+En este capítulo escribiré los detalles del diseño y la implementación por mi parte en este proyecto,
+
+<a name="patrones"></a>
+### 2.1. Patrones utilizados
+
+<a name="singleton"></a>
+#### 2.1.1 - Singleton 
+
+Utilizamos el patron Singleton para las clases Juego, Ranking, Setup, InstaciónDeHandler, entre otras, ya que es necesario para nuestra implementación que exista una sola instancia de dichas clases. Tanto la clase Juego como Ranking, fueron creadas de forma que tengan un constructor privado como una propiedad estatica, así como tambien el metodo público estático que será el encargado de crear las instancias (Para cada clase: Juego, Ranking y Setup), y guardar una referencia a la misma en la propiedad antes dicha. 
+
+Ranking, Juego y Setup tienen un metodo que chequean que el no hayan sido instanciados anteriormente, y en caso de no, llama al constructor.
+
+<a name="expert"></a>
+#### 2.1.2 - Expert
+
+Utilizamos el patron Expert para asignarle responsabilidades a los objetos que tienen la información necesaria, por ende son expertos, para realizarla. Por ejemplo en la clase ronda es la que tiene la infromación de las cartas jugadas en la ronda y de la carta que fue seleccionada por el juez como la ganadora, por ende tiene la responsabilidad ronda de asignar el ganador de la ronda. 
+
+<a name="creator"></a>
+#### 2.1.3 - Creator 
+
+Utilizamos el patron Creator y se puede ver representado en Juego, particularmente en que es el responsable de crear nuevas instancias de Carta y CartaJuez, basandonos en que el encargado y responsable debido a que se cumplen los siguientes casos: 
+     - Juego agrega objetos de Carta y CartaJuez
+     - Juego contiente objetos de Carta y CartaJuez
+     - Juego registra instancias de objetos de Carta y CartaJuez
+     - Juego utiliza más estrechamente objetos de Carta y CartaJuez
+     - Juego tiene datos de inicialización que se pasarán a un objeto de clase Carta y clase CartaJuez cuando estos sean creados, por tanto Juego es un experto con respecto a la creación de Carta y CartaJuez
+
+<a name="srp"></a>
+#### 2.1.4 - SRP 
+
+Utilizamos el patron SRP en Carta y en CartaJuez, ya que estas solo tiene el constructor y por lo tanto solo tienen una razon de cambio.
+Preferimos mantener estas clases simples ya que no vimos necesario darles un grado de complejidad mayor.
+
+<a name="adapter"></a>
+#### 2.1.5 - Adapter
+
+Utilizamos el patron Adapter principalmente para que el todas las clases que debamos implementar en caso querer integrar algun otro canal de mensajeria que no sea telegram, unicamente se deberia implementar una clase adptadora que herede de la interfaz IMessageChannel para implementar los metodos del bot sin tener que cambiar la logica del juego ni modificar clases ya implementadas. 
+
+
+<a name="ocp"></a>
+#### 2.1.6 - OCP
+
+Basicamente empleamos este patron para poder extender el juego sin la necesidad de modificar el comportamiento del juego actual. Por ejemplo en el caso que en un futuro querramos que para el juego las cartas se carguen mediante otro medio que no sea mediante archivo csv, tenemos la interfaz IInputCards de la cual hereda la clase destinada para procesar el archivo CSV, por lo que si integramos la carga de tarjetas por otro media, uniamente se deberia crear la clase que herede de la interfaz e implemente el metodo de procesar archivo.
+Lo mismo para el caso en que querramos tambien integrar el bot mediante otro canal de mensajería, utilizariamos la interfaz para abstraernos de las implementaciones propias de cada API de manera que el programa quede cerrado para la modificación. Por ende extender el comportamiento no deberia tener como resultado cambiar el codigo origina del juego   
+

@@ -15,10 +15,10 @@ namespace Library.Characters.Heroes
         {
         }
         
-          public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
-          {
-              TorreDeLosCaidos.Instance.Subscribe(this);
-          }
+        public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
+        {
+            TorreDeLosCaidos.Instance.Subscribe(this);
+        }
         
         
         public void Attack(AbstractVillain villain)

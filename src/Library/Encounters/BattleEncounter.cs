@@ -8,7 +8,6 @@ namespace Library.Encounters
 {
     public class BattleEncounter : IEncounter
     {
-        //TODO: Honor&Glory
         public List<AbstractHero> Heroes { get; }
         public List<AbstractVillain> Villains { get; }
         private ILogger Logger { get; }
@@ -23,7 +22,7 @@ namespace Library.Encounters
         {
             Heroes = heroes;
             Villains = villains;
-            Logger = RpCore.GetInstance().Logger;
+            Logger = RpCore.Instance.Logger;
         }
 
 

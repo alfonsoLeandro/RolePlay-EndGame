@@ -24,7 +24,7 @@ namespace Library.Encounters
             Sharer = sharer;
             ToShare = toShare;
             Items = items;
-            Logger = RpCore.GetInstance().Logger;
+            Logger = RpCore.Instance.Logger;
         }
 
         //Implementación previa.
