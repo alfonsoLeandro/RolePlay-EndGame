@@ -5,12 +5,12 @@ namespace Library.Characters.Villains
 {
     public class Satan : AbstractVillain
     {
-        public Satan(int hp, int damage, int defense) : base(hp*2, damage*2, defense)
+        public Satan(int hp, int damage, int defense) : base(hp, damage*2, defense)
         {
             RpCore.GetInstance().Logger.Log("Satan has awaken");
         }
         
-        public Satan(int hp, int damage, int defense, List<AbstractItem> items) : base(hp*2, damage*2, defense, items)
+        public Satan(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage*2, defense, items)
         {
             RpCore.GetInstance().Logger.Log("Satan has awaken");
         }

@@ -9,11 +9,16 @@ namespace Library.Encounters
     public class BattleEncounter : IEncounter
     {
         //TODO: Honor&Glory
-        private List<AbstractHero> Heroes { get; }
-        private List<AbstractVillain> Villains { get; }
+        public List<AbstractHero> Heroes { get; }
+        public List<AbstractVillain> Villains { get; }
         private ILogger Logger { get; }
         
 
+        public BattleEncounter(AbstractHero hero, AbstractVillain villain)
+        : this(new List<AbstractHero>(){hero}, new List<AbstractVillain>(){villain})
+        {
+        }
+        
         public BattleEncounter(List<AbstractHero> heroes, List<AbstractVillain> villains)
         {
             Heroes = heroes;

@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Library.Characters.Heroes;
 using System.Collections.Generic;
-using System.Linq;
 using Library.Characters.Villains;
 using Library.Encounters;
 using Library.EventLogger;
@@ -36,8 +35,8 @@ namespace Library.Tests
         [TestCase]
         public void Character_is_dead()
         {
-            Elf elf = new Elf(10, 10, 0, new List<AbstractItem>());
-            Dragon dragon = new Dragon(10, 10, 0, new List<AbstractItem>());
+            Elf elf = new Elf(10, 10, 0);
+            Dragon dragon = new Dragon(10, 10, 0);
             
             dragon.Attack(elf);
             
@@ -47,8 +46,8 @@ namespace Library.Tests
         [TestCase]
         public void Successful_exchange()
         {
-            Dwarf dwarf = new Dwarf(9, 1, 0, new List<AbstractItem>());
-            Demon demon = new Demon(23,6547, 24, new List<AbstractItem>());
+            Dwarf dwarf = new Dwarf(9, 1, 0);
+            Demon demon = new Demon(23,6547, 24);
 
             Sword sword = new Sword(999999999);
             
@@ -63,8 +62,8 @@ namespace Library.Tests
         public void UnSuccessful_exchange()
         {
             bool failed = false;
-            Dwarf dwarf = new Dwarf(9, 1, 0, new List<AbstractItem>());
-            Demon demon = new Demon(23,6547, 24, new List<AbstractItem>());
+            Dwarf dwarf = new Dwarf(9, 1, 0);
+            Demon demon = new Demon(23,6547, 24);
             
             //dwarf no tiene nigun item. El intercambio deberia fallar (devolver false.)
             //dwarf.AddItem(new Sword(999999999));
@@ -87,14 +86,14 @@ namespace Library.Tests
         [TestCase]
         public void Villains_win_battle_encounter()
         {
-            Dwarf dwarf = new Dwarf(9, 1, 0, new List<AbstractItem>());
-            Elf elf = new Elf(10, 3, 0, new List<AbstractItem>());
-            Wizard wizard = new Wizard(8, 4, 0, new List<AbstractItem>());
+            Dwarf dwarf = new Dwarf(9, 1, 0);
+            Elf elf = new Elf(10, 3, 0);
+            Wizard wizard = new Wizard(8, 4, 0);
             
             
-            Demon demon = new Demon(23,6547, 24, new List<AbstractItem>());
-            Dragon dragon = new Dragon(10, 10, 0, new List<AbstractItem>());
-            Orc orc = new Orc(24, 4, 1, new List<AbstractItem>());
+            Demon demon = new Demon(23,6547, 24);
+            Dragon dragon = new Dragon(10, 10, 0);
+            Orc orc = new Orc(24, 4, 1);
 
             var heroes = new List<AbstractHero> {dwarf, elf, wizard};
             var villains = new List<AbstractVillain> {demon, dragon, orc};
@@ -108,14 +107,14 @@ namespace Library.Tests
         [TestCase]
         public void Heroes_win_battle_encounter()
         {
-            Dwarf dwarf = new Dwarf(1000, 80, 0, new List<AbstractItem>());
-            Elf elf = new Elf(67060, 45, 0, new List<AbstractItem>());
-            Wizard wizard = new Wizard(9595, 54, 0, new List<AbstractItem>());
+            Dwarf dwarf = new Dwarf(1000, 80, 0);
+            Elf elf = new Elf(67060, 45, 0);
+            Wizard wizard = new Wizard(9595, 54, 0);
             
             
-            Demon demon = new Demon(23,1, 24, new List<AbstractItem>());
-            Dragon dragon = new Dragon(10, 10, 0, new List<AbstractItem>());
-            Orc orc = new Orc(24, 4, 1, new List<AbstractItem>());
+            Demon demon = new Demon(23,1, 24);
+            Dragon dragon = new Dragon(10, 10, 0);
+            Orc orc = new Orc(24, 4, 1);
 
             var heroes = new List<AbstractHero> {dwarf, elf, wizard};
             var villains = new List<AbstractVillain> {demon, dragon, orc};
@@ -131,7 +130,7 @@ namespace Library.Tests
         {
             bool failed = false;
             SpellBook spellBook = new SpellBook(new List<Spell>());
-            Elf elf = new Elf(1,1,1,new List<AbstractItem>());
+            Elf elf = new Elf(1,1,1);
         
             try
             {
@@ -150,7 +149,7 @@ namespace Library.Tests
         {
             bool failed = false;
             ForbiddenStaff staff = new ForbiddenStaff(70,90);
-            Wizard wizard = new Wizard(1,1,1,new List<AbstractItem>());
+            Wizard wizard = new Wizard(1,1,1);
 
             try
             {
@@ -258,7 +257,7 @@ namespace Library.Tests
             AscleipoStaff staff = new AscleipoStaff(10,10,10);
             FireBall fireBall = new FireBall(100);
             
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
 
             try
             {
@@ -281,7 +280,7 @@ namespace Library.Tests
             ForbiddenStaff staff = new ForbiddenStaff(10,10);
             
             
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
 
             try
             {
@@ -298,7 +297,7 @@ namespace Library.Tests
         [TestCase]
         public void Damage_is_increased_when_adding_item()
         {
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
             Sword sword = new Sword(10);
             
             int previous = knight.Damage;
@@ -311,7 +310,7 @@ namespace Library.Tests
         [TestCase]
         public void Defense_is_increased_when_adding_item()
         {
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
             Shield shield = new Shield(10);
             
             int previous = knight.Defense;
@@ -324,7 +323,7 @@ namespace Library.Tests
         [TestCase]
         public void Damage_is_reduced_when_removing_item()
         {
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
             Sword sword = new Sword(10);
             
             knight.AddItem(sword);
@@ -339,7 +338,7 @@ namespace Library.Tests
         [TestCase]
         public void Defense_is_reduced_when_removing_item()
         {
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
             Shield shield = new Shield(10);
 
             knight.AddItem(shield);
@@ -378,7 +377,7 @@ namespace Library.Tests
         {
             bool failed = false;
             Shield shield = new Shield(9);
-            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Knight knight = new Knight(10,0,0);
 
             try
             {
@@ -402,8 +401,8 @@ namespace Library.Tests
         [TestCase]
         public void Hp_cannot_be_lower_than_0()
         {
-            Elf elf = new Elf(10,10,10, new List<AbstractItem>());
-            Satan satan = new Satan(10,999999999,10, new List<AbstractItem>());
+            Elf elf = new Elf(10,10,10);
+            Satan satan = new Satan(10,999999999,10);
             
             satan.Attack(elf);
             
@@ -416,8 +415,8 @@ namespace Library.Tests
         public void Sharer_loses_an_item_and_shared_gains_one()
         {
             //Characters:
-            Caronte caronte = new Caronte(10,10,10, new List<AbstractItem>());
-            Wizard wizard = new Wizard(10,10,10, new List<AbstractItem>());
+            Caronte caronte = new Caronte(10,10,10);
+            Wizard wizard = new Wizard(10,10,10);
             
             //Items:
             var curingPotion = new CuringPotion(103);
@@ -459,7 +458,7 @@ namespace Library.Tests
             };
             
             Wizard sharer = new Wizard(10,10,10, items);
-            Dragon receiver = new Dragon(2534,2344,1423, new List<AbstractItem>());
+            Dragon receiver = new Dragon(2534,2344,1423);
 
             int previousSharerItems = sharer.Items.Count;
             int previousReceiverItems = receiver.Items.Count;
@@ -477,8 +476,8 @@ namespace Library.Tests
         [TestCase]
         public void Exception_should_be_thrown_when_sharer_does_not_have_specific_item()
         {
-            Elf sharer = new Elf(1, 1, 1, new List<AbstractItem>());
-            Wizard receiver = new Wizard(34,3,3,new List<AbstractItem>());
+            Elf sharer = new Elf(1, 1, 1);
+            Wizard receiver = new Wizard(34,3,3);
             
             Sword item = new Sword(12);
             
@@ -491,13 +490,97 @@ namespace Library.Tests
         [TestCase]
         public void Expected_battle_result_1()
         {
-            Satan satan = new Satan(1,1,1);
+            Satan satan = new Satan(10,0,0);
+            ShadowHunter shadowHunter = new ShadowHunter(1,10,10);
             
+            BattleEncounter battleEncounter = new BattleEncounter(new List<AbstractHero>(){shadowHunter},
+                new List<AbstractVillain>(){satan});
+
+            
+            Assert.IsTrue(battleEncounter.RunEncounter());
         }
         
-        
-        
-        
+        [TestCase]
+        public void Expected_battle_result_2()
+        {
+            Satan satan = new Satan(10,9000,0);
+            ShadowHunter shadowHunter = new ShadowHunter(1,10,10);
+            
+            BattleEncounter encounter = new BattleEncounter(new List<AbstractHero>(){shadowHunter},
+                new List<AbstractVillain>(){satan});
 
+            
+            Assert.IsFalse(encounter.RunEncounter());
+        }  
+        
+        
+        [TestCase]
+        public void Only_one_character_alive_after_battle_encounter_1()
+        {
+            Satan satan = new Satan(10,9000,0);
+            Dragon dragon = new Dragon(56,52,34);
+            Orc orc = new Orc(23, 34, 4);
+
+            ShadowHunter shadowHunter = new ShadowHunter(1,10,10);
+            Angel angel = new Angel(231,223,343);
+            Archer archer = new Archer(2323,323,32);
+            Knight knight = new Knight(23,3334,132);
+            
+            BattleEncounter encounter = new BattleEncounter(new List<AbstractHero>()
+                {
+                    shadowHunter,
+                    angel,
+                    archer,
+                    knight
+                },
+                new List<AbstractVillain>()
+                {
+                    satan,
+                    dragon,
+                    orc
+                });
+            
+            encounter.RunEncounter();
+
+            int heroesAlive = 0;
+            int villainsAlive = 0;
+            foreach (var hero in encounter.Heroes)
+            {
+                if (hero.IsAlive()) heroesAlive++;
+            }
+            foreach (var villain in encounter.Villains)
+            {
+                if (villain.IsAlive()) villainsAlive++;
+            }
+
+            
+            Assert.IsTrue(heroesAlive == 0 || villainsAlive == 0);
+        }     
+        
+        [TestCase]
+        public void Only_one_character_alive_after_battle_encounter_2()
+        {
+            Satan satan = new Satan(10,9000,0);
+            ShadowHunter shadowHunter = new ShadowHunter(1,10,10);
+            
+            BattleEncounter encounter = new BattleEncounter(shadowHunter,satan);
+            
+            encounter.RunEncounter();
+
+            int heroesAlive = 0;
+            int villainsAlive = 0;
+            foreach (var hero in encounter.Heroes)
+            {
+                if (hero.IsAlive()) heroesAlive++;
+            }
+            foreach (var villain in encounter.Villains)
+            {
+                if (villain.IsAlive()) villainsAlive++;
+            }
+
+            
+            Assert.IsTrue((heroesAlive == 0 && villainsAlive == 1)
+                || (villainsAlive == 0 && heroesAlive == 1));
+        }
     }
 }
