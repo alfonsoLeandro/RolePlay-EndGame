@@ -1,7 +1,9 @@
-﻿namespace Library.CampoDeLosCaidos
+﻿using Library.Characters;
+
+namespace Library.CampoDeLosCaidos
 {
     public interface IObserver
     {
-        void Update();
+        void Update(AbstractCharacter killer, AbstractCharacter killed);
     }
 }

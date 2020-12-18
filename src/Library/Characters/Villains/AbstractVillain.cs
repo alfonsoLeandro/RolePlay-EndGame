@@ -7,14 +7,18 @@ using Library.Items;
 
 namespace Library.Characters.Villains
 {
-    public abstract class AbstractVillain : AbstractCharacter
+    public abstract class AbstractVillain : AbstractCharacter, IObserver
     {
-        public AbstractVillain(int hp, int damage, int defense) : base(hp, damage, defense)
+        public List<string> ArbolDeLosMilDias { get; }
+        
+        public AbstractVillain(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
         }
         
         public AbstractVillain(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
+            ArbolDeLosMilDias = new List<string>();
+            TorreDeLosCaidos.Instance.Subscribe(this);
         }
 
         public void Attack(AbstractHero hero)
@@ -25,9 +29,16 @@ namespace Library.Characters.Villains
 
             if (!hero.IsAlive())
             {
-                TorreDeLosCaidos.GetInstance().VillainKilledHero(this, hero);
+                TorreDeLosCaidos.Instance.Notify(this, hero);
             }
         }
-        
+
+        public virtual void Update(AbstractCharacter killer, AbstractCharacter killed)
+        {
+            if (killer.Equals(this))
+            {
+                ArbolDeLosMilDias.Add(killed.ToString());
+            }
+        }
     }
 }

@@ -7,15 +7,19 @@ using Library.Items;
 
 namespace Library.Characters.Heroes
 {
-    public abstract class AbstractHero : AbstractCharacter
+    public abstract class AbstractHero : AbstractCharacter, IObserver
     {
-        public AbstractHero(int hp, int damage, int defense) : base(hp, damage, defense)
+        public int PiedraEterna { get; protected set; }
+        
+        public AbstractHero(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
         }
         
           public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
-        {
-        }
+          {
+              PiedraEterna = 0;
+              TorreDeLosCaidos.Instance.Subscribe(this);
+          }
         
         
         public void Attack(AbstractVillain villain)
@@ -25,9 +29,16 @@ namespace Library.Characters.Heroes
             
             if (!villain.IsAlive())
             {
-                TorreDeLosCaidos.GetInstance().HeroKilledVillain(this, villain);
+                TorreDeLosCaidos.Instance.Notify(this, villain);
             }
         }
 
+        public virtual void Update(AbstractCharacter killer, AbstractCharacter killed)
+        {
+            if (killer.Equals(this))
+            {
+                PiedraEterna += 1;
+            }
+        }
     }
 }
