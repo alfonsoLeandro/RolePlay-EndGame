@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Library.Characters.Heroes;
 using System.Collections.Generic;
 using Library.Characters.Villains;
@@ -225,7 +226,52 @@ namespace Library.Tests
             Assert.IsTrue(wizard.Damage.Equals(10+spell.DamageValue) 
                           && wizard.Defense.Equals(10+spell.DefenseValue)
                           && wizard.Hp.Equals(10+spell.HealthValue));
-        }   
+        }
+
+        [TestCase]
+        public void Ascleipo_staff_combined_is_non_magic()
+        {
+            bool failed = false;
+            
+            AscleipoStaff staff = new AscleipoStaff(10,10,10);
+            FireBall fireBall = new FireBall(100);
+            
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+
+            try
+            {
+                knight.AddItem(staff.Combine(fireBall));
+            }
+            catch (Exception e)
+            {
+                failed = true;
+            }
+            
+            Assert.IsTrue(!failed && knight.Damage.Equals(110));
+        }       
+        
+        [TestCase]
+        public void Cannot_add_magic_compound_to_non_wizard_or_witch()
+        {
+            bool failed = false;
+            
+            FireBall fireBall = new FireBall(100);
+            ForbiddenStaff staff = new ForbiddenStaff(10,10);
+            
+            
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+
+            try
+            {
+                knight.AddItem(fireBall.Combine(staff));
+            }
+            catch (Exception e)
+            {
+                failed = true;
+            }
+            
+            Assert.IsTrue(failed && knight.Damage.Equals(0));
+        }
         
    
         
