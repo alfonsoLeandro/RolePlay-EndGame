@@ -15,7 +15,6 @@ namespace Library.Encounters
         
         public ExchangeEncounter(AbstractCharacter sharer, AbstractCharacter toShare)
         {
-            // if(sharer.Items.Count == 0) throw new NoItemsToShareException("El personaje que iba a compartir items no tiene ningun item en su posesión.");
             Sharer = sharer;
             ToShare = toShare;
             Logger = RpCore.GetInstance().Logger;
@@ -27,22 +26,15 @@ namespace Library.Encounters
             Logger.Log($"Un encuentro de intercambio a comenzado.");
             try
             {
+                if(Sharer.Items.Count == 0) throw new NoItemsToShareException("El personaje que iba a compartir items no tiene ningun item en su posesión.");
                 AbstractItem item = Sharer.Items[new Random().Next(Sharer.Items.Count)];
                 Sharer.GiveItem(ToShare, item);
                 Logger.Log($"{ToShare.ToString()} ha cedido un {item.ToString()} a {Sharer.ToString()}");
                 return true;
             }
-            catch (CannotAddItemException e)
+            catch (Exception e)
             {
                 Logger.Log(e.Message);
-            }
-            catch (DoesNotContainItemException e)
-            {
-                Logger.Log(e.Message);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Logger.Log("El personaje a intercambiar un item no posee ningun item.");
             }
             Logger.Log("El intercambio ha fallado.");
             return false;

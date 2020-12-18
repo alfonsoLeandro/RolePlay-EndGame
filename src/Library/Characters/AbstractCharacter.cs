@@ -32,7 +32,7 @@ namespace Library.Characters
  
         public void Cure()
         {
-            this.Cure(DefaultStats[0]);
+            this.Hp = DefaultStats[0];
         }
         
         public void Cure(int amount)

@@ -17,6 +17,12 @@ namespace Library.Characters.Heroes
         {
             if(!this.IsAlive() || !villain.IsAlive()) throw new CannotAttackDeadException("Uno de los dos caracteres que iba a ser atacado estaba muerto.");
             villain.Hp = Math.Max(0, villain.Hp - Math.Max(0, this.Damage - villain.Defense));
+            
+            if (!villain.IsAlive())
+            {
+                HonorAndGlory.GetInstance().HeroKilledVillain(this, villain);
+            }
         }
+
     }
 }
