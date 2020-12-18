@@ -1,43 +1,40 @@
 ﻿using System.Collections.Generic;
-using Library.Characters.Heroes;
-using Library.Characters.Villains;
+using Library.Characters;
 
 namespace Library.CampoDeLosCaidos
 {
-    public class TorreDeLosCaidos
+    public class TorreDeLosCaidos : IObservable
     {
-        private static TorreDeLosCaidos instance;
-        public List<string> ArbolDeLosMilDias { get; }
-        public int PiedraEterna { get; set; }
-        public Dictionary<string,string> LibroDeLaSabiduria { get; set; }
+        public static TorreDeLosCaidos Instance { get; } = new TorreDeLosCaidos();
+        private List<IObserver> Observers { get; }
 
         private TorreDeLosCaidos()
         {
-            ArbolDeLosMilDias = new List<string>();
-            PiedraEterna = 0;
-            LibroDeLaSabiduria = new Dictionary<string, string>();
+            Observers = new List<IObserver>();
         }
-
-        public static TorreDeLosCaidos GetInstance()
+        
+        public void Subscribe(IObserver observer)
         {
-            if (instance == null)
+            if (!Observers.Contains(observer))
             {
-                instance = new TorreDeLosCaidos();
+                Observers.Add(observer);
             }
-
-            return instance;
         }
 
-        public void VillainKilledHero(AbstractVillain villain, AbstractHero hero)
+        public void UnSubscribe(IObserver observer)
         {
-            //TODO
+            if (Observers.Contains(observer))
+            {
+                Observers.Remove(observer);
+            }
         }
         
-        public void HeroKilledVillain(AbstractHero hero, AbstractVillain villain)
+        public void Notify(AbstractCharacter killer, AbstractCharacter killed)
         {
-            //TODO
+            foreach (var observer in Observers)
+            {
+                observer.Update(killer, killed);
+            }
         }
-        
-        
     }
 }
