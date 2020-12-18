@@ -2,6 +2,6 @@
 {
     public interface IEncounter
     {
-        public bool RunEncounter();
+        bool RunEncounter();
     }
 }

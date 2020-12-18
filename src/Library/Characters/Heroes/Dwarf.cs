@@ -5,6 +5,10 @@ namespace Library.Characters.Heroes
 {
     public class Dwarf : AbstractHero
     {
+        public Dwarf(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
         public Dwarf(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }

@@ -5,7 +5,10 @@ namespace Library.Characters.Heroes
 {
     public class Wizard : AbstractHero
     {
-
+        public Wizard(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
         public Wizard(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }

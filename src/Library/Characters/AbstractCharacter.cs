@@ -16,6 +16,11 @@ namespace Library.Characters
         public int Vp { get; set; }
         public List<AbstractItem> Items { get; }
 
+        protected AbstractCharacter(int hp, int damage, int defense)
+            : this(hp, damage, defense, new List<AbstractItem>())
+        {
+        }
+        
         protected AbstractCharacter(int hp, int damage, int defense, List<AbstractItem> items)
         {
             this.Hp = hp;
@@ -138,6 +143,16 @@ namespace Library.Characters
         public bool IsAlive()
         {
             return this.Hp > 0;
+        }
+
+        public void RemoveItem(AbstractItem item)
+        {
+            if (!this.Items.Contains(item))
+            {
+                throw new DoesNotContainItemException($"Este {this.ToString()} no contiene el item que se le iba a remover.");
+            }
+            this.Items.Remove(item);
+            UpdateStats();
         }
 
 

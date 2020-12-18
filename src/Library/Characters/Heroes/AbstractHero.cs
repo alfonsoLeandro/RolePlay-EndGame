@@ -9,7 +9,11 @@ namespace Library.Characters.Heroes
 {
     public abstract class AbstractHero : AbstractCharacter
     {
-        public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
+        public AbstractHero(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
+          public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }
         

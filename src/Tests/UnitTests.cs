@@ -2,17 +2,26 @@
 using NUnit.Framework;
 using Library.Characters.Heroes;
 using System.Collections.Generic;
+using System.Linq;
 using Library.Characters.Villains;
 using Library.Encounters;
 using Library.EventLogger;
 using Library.Exceptions;
 using Library.Items;
 using Library.Items.CommonItems;
+using Library.Items.CommonItems.Potions;
 using Library.Items.ExceptionalItems;
 using Library.Items.MagicItems;
 
 namespace Library.Tests
 {
+    /// <summary>
+    /// Clase destinada a contener los tests de NUnit.
+    /// Pido comprensión por parte de quien corrija estos tests ya que hay algunas cosas que pueden no estar
+    /// hecha como fueron descritas en el punto número 5 de la tarea, y esto es porque realicé los tests antes
+    /// de leer las recomendaciones de tests. A partir de la linea 283 realizo los tests que recomendaron en el
+    /// punto numero 5, todos los anteriores son tests que encontré útiles.
+    /// </summary>
     public class UnitTests
     {
     
@@ -40,10 +49,12 @@ namespace Library.Tests
         {
             Dwarf dwarf = new Dwarf(9, 1, 0, new List<AbstractItem>());
             Demon demon = new Demon(23,6547, 24, new List<AbstractItem>());
+
+            Sword sword = new Sword(999999999);
             
-            dwarf.AddItem(new Sword(999999999));
+            dwarf.AddItem(sword);
             
-            ExchangeEncounter encounter = new ExchangeEncounter(dwarf, demon);
+            ExchangeEncounter encounter = new ExchangeEncounter(dwarf, demon, sword);
             
             Assert.IsTrue(encounter.RunEncounter());
         }    
@@ -51,15 +62,25 @@ namespace Library.Tests
         [TestCase]
         public void UnSuccessful_exchange()
         {
+            bool failed = false;
             Dwarf dwarf = new Dwarf(9, 1, 0, new List<AbstractItem>());
             Demon demon = new Demon(23,6547, 24, new List<AbstractItem>());
             
             //dwarf no tiene nigun item. El intercambio deberia fallar (devolver false.)
             //dwarf.AddItem(new Sword(999999999));
             
-            ExchangeEncounter encounter = new ExchangeEncounter(dwarf, demon);
+            ExchangeEncounter encounter = new ExchangeEncounter(dwarf, demon, new Shield(82387));
             
-            Assert.IsFalse(encounter.RunEncounter());
+            try
+            {
+                encounter.RunEncounter();
+            }
+            catch (Exception e)
+            {
+                failed = true;
+            }
+                
+            Assert.IsTrue(failed);
         }
         
         
@@ -273,8 +294,210 @@ namespace Library.Tests
             
             Assert.IsTrue(failed && knight.Damage.Equals(0));
         }
+
+        [TestCase]
+        public void Damage_is_increased_when_adding_item()
+        {
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Sword sword = new Sword(10);
+            
+            int previous = knight.Damage;
+            
+            knight.AddItem(sword);
+            
+            Assert.IsTrue(previous == 0 && knight.Damage == sword.DamageValue);
+        } 
         
-   
+        [TestCase]
+        public void Defense_is_increased_when_adding_item()
+        {
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Shield shield = new Shield(10);
+            
+            int previous = knight.Defense;
+            
+            knight.AddItem(shield);
+            
+            Assert.IsTrue(previous == 0 && knight.Defense == shield.DefenseValue);
+        }
         
+        [TestCase]
+        public void Damage_is_reduced_when_removing_item()
+        {
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Sword sword = new Sword(10);
+            
+            knight.AddItem(sword);
+            
+            int previous = knight.Damage;
+            
+            knight.RemoveItem(sword);
+            
+            Assert.IsTrue(previous == sword.DamageValue && knight.Damage == 0);
+        } 
+        
+        [TestCase]
+        public void Defense_is_reduced_when_removing_item()
+        {
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+            Shield shield = new Shield(10);
+
+            knight.AddItem(shield);
+            
+            int previous = knight.Defense;
+            
+            knight.RemoveItem(shield);
+            
+            Assert.IsTrue(previous == shield.DefenseValue && knight.Defense == 0);
+        }  
+        
+        [TestCase]
+        public void Damage_is_total_of_items_added_when_creating()
+        {
+            Sword sword = new Sword(10);
+            Sword anotherSword = new Sword(30);
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>(){sword, anotherSword});
+
+            
+            Assert.AreEqual(knight.Damage, sword.DamageValue+anotherSword.DamageValue);
+        } 
+        
+        [TestCase]
+        public void Defense_is_total_of_items_added_when_creating()
+        {
+            Shield shield = new Shield(540);
+            Shield anotherShield = new Shield(75);
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>(){shield, anotherShield});
+
+            
+            Assert.AreEqual(knight.Defense, shield.DefenseValue+anotherShield.DefenseValue);
+        }
+        
+        [TestCase]
+        public void Removing_non_existent_item_fails()
+        {
+            bool failed = false;
+            Shield shield = new Shield(9);
+            Knight knight = new Knight(10,0,0, new List<AbstractItem>());
+
+            try
+            {
+                knight.RemoveItem(shield);
+            }
+            catch (Exception e)
+            {
+                failed = true;
+            }
+            
+            Assert.IsTrue(failed);
+        }
+        
+        //TEST 9: Cambié el modo en que funciona la defensa, para agregar un "toque" o "salt" y para que no funcione
+        //de la misma manera que los puntos de vida. La defensa puede ser muy eficiente o muy poco eficiente de la siguiente manera:
+        //cuando un personaje es atacado, se le resta: (el poder de ataque del atacante menos un numero pseudo random entre 0 y el
+        //poder de defensa del personaje atacado). Snippet de este código:
+        //hero.Hp = Math.Max(0, hero.Hp - Math.Max(0, this.Damage - new Random().Next(hero.Defense)));
+
+
+        [TestCase]
+        public void Hp_cannot_be_lower_than_0()
+        {
+            Elf elf = new Elf(10,10,10, new List<AbstractItem>());
+            Satan satan = new Satan(10,999999999,10, new List<AbstractItem>());
+            
+            satan.Attack(elf);
+            
+            Assert.IsTrue(elf.Hp >= 0);
+        }
+        
+        //TEST 11: Nuevamente el punto del test 9.
+
+        [TestCase]
+        public void Sharer_loses_an_item_and_shared_gains_one()
+        {
+            //Characters:
+            Caronte caronte = new Caronte(10,10,10, new List<AbstractItem>());
+            Wizard wizard = new Wizard(10,10,10, new List<AbstractItem>());
+            
+            //Items:
+            var curingPotion = new CuringPotion(103);
+            var shield = new Shield(1456);
+            var sword = new Sword(993);
+            var trident = new Trident(12081,120);
+            
+            //Adding items:
+            caronte.AddItem(shield);
+            
+            wizard.AddItem(curingPotion);
+            wizard.AddItem(sword);
+            wizard.AddItem(trident);
+            
+            //Encounter
+            ExchangeEncounter encounter = new ExchangeEncounter(wizard, caronte, curingPotion);
+
+            //Saving previous item counts
+            int previousCaronteItems = caronte.Items.Count;
+            int previousWizardItems = wizard.Items.Count;
+            
+            //Running the encounter (assuming the encounter success)
+            encounter.RunEncounter();
+            
+            Assert.IsTrue(caronte.Items.Count == previousCaronteItems+1 
+                          && wizard.Items.Count == previousWizardItems-1
+                          && caronte.Items.Contains(curingPotion)
+                          && !wizard.Items.Contains(curingPotion));
+        }
+
+        [TestCase]
+        public void Sharer_loses_every_item_traded()
+        {
+            var items = new List<AbstractItem>()
+            {
+                new Shield(1234),
+                new Sword(65),
+                new Trident(43,1293)
+            };
+            
+            Wizard sharer = new Wizard(10,10,10, items);
+            Dragon receiver = new Dragon(2534,2344,1423, new List<AbstractItem>());
+
+            int previousSharerItems = sharer.Items.Count;
+            int previousReceiverItems = receiver.Items.Count;
+
+            var encounter = new ExchangeEncounter(sharer, receiver, items);
+
+            encounter.RunEncounter();
+            
+            Assert.IsTrue(previousSharerItems == items.Count
+                          && previousReceiverItems == 0
+                          && sharer.Items.Count == 0
+                          && receiver.Items.Count == items.Count);
+        }
+
+        [TestCase]
+        public void Exception_should_be_thrown_when_sharer_does_not_have_specific_item()
+        {
+            Elf sharer = new Elf(1, 1, 1, new List<AbstractItem>());
+            Wizard receiver = new Wizard(34,3,3,new List<AbstractItem>());
+            
+            Sword item = new Sword(12);
+            
+            ExchangeEncounter encounter = new ExchangeEncounter(sharer, receiver, item);
+
+            Assert.Throws<NoItemsToShareException>(() => encounter.RunEncounter());
+        }
+        
+        
+        [TestCase]
+        public void Expected_battle_result_1()
+        {
+            Satan satan = new Satan(1,1,1);
+            
+        }
+        
+        
+        
+        
+
     }
 }

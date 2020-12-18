@@ -5,6 +5,10 @@ namespace Library.Characters.Heroes
 {
     public class ShadowHunter : AbstractHero
     {
+        public ShadowHunter(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
         public ShadowHunter(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }
