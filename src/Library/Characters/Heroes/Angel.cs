@@ -5,14 +5,13 @@ namespace Library.Characters.Heroes
 {
     public class Angel : AbstractHero
     {
-        public List<string> PerdonadosPorDios { get; }
+        public static List<string> PerdonadosPorDios { get; } = new List<string>();
         public Angel(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
         }
 
         public Angel(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
-            PerdonadosPorDios = new List<string>();
         }
 
 

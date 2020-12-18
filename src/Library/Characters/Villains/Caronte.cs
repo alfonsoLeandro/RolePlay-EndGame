@@ -5,14 +5,13 @@ namespace Library.Characters.Villains
 {
     public class Caronte : AbstractVillain
     {
-        public List<string> AlmasEnPena { get; }
+        public static List<string> AlmasEnPena { get; } = new List<string>();
         public Caronte(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
         }
         
         public Caronte(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
-            AlmasEnPena = new List<string>();
         }
 
         public override string ToString()

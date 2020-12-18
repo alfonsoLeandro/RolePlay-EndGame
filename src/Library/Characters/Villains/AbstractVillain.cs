@@ -9,7 +9,7 @@ namespace Library.Characters.Villains
 {
     public abstract class AbstractVillain : AbstractCharacter, IObserver
     {
-        public List<string> ArbolDeLosMilDias { get; }
+        public static List<string> ArbolDeLosMilDias { get; } = new List<string>();
         
         public AbstractVillain(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
@@ -17,7 +17,6 @@ namespace Library.Characters.Villains
         
         public AbstractVillain(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
-            ArbolDeLosMilDias = new List<string>();
             TorreDeLosCaidos.Instance.Subscribe(this);
         }
 

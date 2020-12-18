@@ -9,7 +9,7 @@ namespace Library.Characters.Heroes
 {
     public abstract class AbstractHero : AbstractCharacter, IObserver
     {
-        public int PiedraEterna { get; protected set; }
+        public static int PiedraEterna { get; protected set; }
         
         public AbstractHero(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
@@ -17,7 +17,6 @@ namespace Library.Characters.Heroes
         
           public AbstractHero(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
           {
-              PiedraEterna = 0;
               TorreDeLosCaidos.Instance.Subscribe(this);
           }
         
