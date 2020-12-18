@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.CommonItems.Potions
 {
-    public class RecoveryPotion : AbstractItem
+    public class RecoveryPotion : NonMagicItem
     {
-        public RecoveryPotion(int defenseValue, int healthValue) : base(false, false, defenseValue, 0, healthValue)
+        public RecoveryPotion(int defenseValue, int healthValue) : base(defenseValue, 0, healthValue)
         {
         }
 

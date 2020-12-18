@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Library.Characters.Heroes;
 using System.Collections.Generic;
 using Library.Characters.Villains;
@@ -7,7 +6,6 @@ using Library.Encounters;
 using Library.EventLogger;
 using Library.Exceptions;
 using Library.Items;
-using Library.Items.Common_items;
 using Library.Items.CommonItems;
 using Library.Items.ExceptionalItems;
 using Library.Items.MagicItems;
@@ -103,14 +101,15 @@ namespace Library.Tests
             
             Assert.IsTrue(encounter.RunEncounter());
         }
-
+        
+        
         [TestCase]
         public void Cannot_add_magic_item_to_non_wizard_character()
         {
             bool failed = false;
-            SpellBook spellBook = new SpellBook();
+            SpellBook spellBook = new SpellBook(new List<Spell>());
             Elf elf = new Elf(1,1,1,new List<AbstractItem>());
-
+        
             try
             {
                 elf.AddItem(spellBook);
@@ -128,11 +127,11 @@ namespace Library.Tests
         {
             bool failed = false;
             ForbiddenStaff staff = new ForbiddenStaff(70,90);
-            Wizard elf = new Wizard(1,1,1,new List<AbstractItem>());
+            Wizard wizard = new Wizard(1,1,1,new List<AbstractItem>());
 
             try
             {
-                elf.AddItem(staff);
+                wizard.AddItem(staff);
             }
             catch (CannotAddItemException e)
             {
@@ -140,7 +139,95 @@ namespace Library.Tests
             }
             
             Assert.IsFalse(failed);
+        }     
+        
+        [TestCase]
+        public void Successful_item_combination()
+        {
+            Sword sword = new Sword(10);
+            Shield shield = new Shield(10);
+
+            var combined = shield.Combine(sword);
+
+            Assert.IsTrue(combined.ToString().Equals("Shield and sword")
+                          && combined.DamageValue.Equals(sword.DamageValue) 
+                          && combined.DefenseValue.Equals(shield.DefenseValue));
+        } 
+        
+        [TestCase]
+        public void Successful_elemental_gem_added_to_dark_sword()
+        {
+            DarkSword darkSword = new DarkSword(new List<ElementalGem>());
+            ElementalGem gem = new ElementalGem(10,10, 10);
+            
+            var combined = darkSword.Combine(gem);
+
+            Assert.IsTrue(combined.ToString().Equals("Dark sword")
+                          && combined.DamageValue.Equals(gem.DamageValue) 
+                          && combined.DefenseValue.Equals(gem.DefenseValue)
+                          && combined.HealthValue.Equals(gem.HealthValue));
         }
+
+        [TestCase]
+        public void Successfully_recognize_gem_and_dark_sword_and_combine_them()
+        {
+            DarkSword darkSword = new DarkSword(new List<ElementalGem>());
+            ElementalGem gem = new ElementalGem(10,10,10);
+            
+            Knight knight = new Knight(10,10,10, new List<AbstractItem>(){darkSword, gem});
+            
+            Assert.IsTrue(knight.Damage.Equals(10+gem.DamageValue) 
+                          && knight.Defense.Equals(10+gem.DefenseValue)
+                          && knight.Hp.Equals(10+gem.HealthValue));
+        }   
+        
+        [TestCase]
+        public void Successfully_recognize_gem_and_dark_sword_and_combine_them_after_creation()
+        {
+            DarkSword darkSword = new DarkSword(new List<ElementalGem>());
+            
+            Knight knight = new Knight(10,10,10, new List<AbstractItem>(){darkSword});
+
+            ElementalGem gem = new ElementalGem(10,10,10);
+            
+            knight.AddItem(gem);
+            
+            
+            Assert.IsTrue(knight.Damage.Equals(10+gem.DamageValue) 
+                          && knight.Defense.Equals(10+gem.DefenseValue)
+                          && knight.Hp.Equals(10+gem.HealthValue));
+        }   
+        
+        [TestCase]
+        public void Successfully_recognize_spell_and_spell_book_and_combine_them()
+        {
+            SpellBook spellBook = new SpellBook(new List<Spell>());
+            Spell spell = new Spell(10,10,10);
+            
+            Wizard wizard = new Wizard(10,10,10, new List<AbstractItem>(){spellBook, spell});
+            
+            Assert.IsTrue(wizard.Damage.Equals(10+spell.DamageValue) 
+                          && wizard.Defense.Equals(10+spell.DefenseValue)
+                          && wizard.Hp.Equals(10+spell.HealthValue));
+        }
+        
+        [TestCase]
+        public void Successfully_recognize_spell_and_spell_book_and_combine_them_after_creation()
+        {
+            SpellBook spellBook = new SpellBook(new List<Spell>());
+            
+            Wizard wizard = new Wizard(10,10,10, new List<AbstractItem>(){spellBook});
+            
+            Spell spell = new Spell(10,10,10);
+            
+            wizard.AddItem(spell);
+            
+            Assert.IsTrue(wizard.Damage.Equals(10+spell.DamageValue) 
+                          && wizard.Defense.Equals(10+spell.DefenseValue)
+                          && wizard.Hp.Equals(10+spell.HealthValue));
+        }   
+        
+   
         
     }
 }

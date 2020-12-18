@@ -3,13 +3,14 @@ using Library.Characters.Heroes;
 using Library.Characters.Villains;
 using Library.Exceptions;
 using Library.Items;
+using Library.Items.ExceptionalItems;
 
 namespace Library.Characters
 {
     public abstract class AbstractCharacter
     {
         public int Hp { get; set; }
-        private int[] DefaultStats { get; set; } = new int[3];
+        private int[] DefaultStats { get; } = new int[3];
         public int Damage { get; private set; }
         public int Defense { get; private set; }
         public int Vp { get; set; }
@@ -49,7 +50,7 @@ namespace Library.Characters
             var wizard = GetType() == typeof(Wizard) || GetType() == typeof(Witch);
             foreach (var item in items)
             {
-                if (wizard || !item.IsMagic)
+                if (wizard || !(item is MagicItem))
                 {
                     Items.Add(item);
                 }
@@ -57,30 +58,65 @@ namespace Library.Characters
             UpdateStats();
         }
 
-        public void AddItem(AbstractItem abstractItem)
+        public void AddItem(AbstractItem item)
         {
-            //Rompo con patrón polimorfismo ya que el wizard es el único que puede obtener items de timpo mágico
-            if ((GetType() != typeof(Wizard) && GetType() != typeof(Witch)) && abstractItem.IsMagic) 
+            //Rompo con patrón polimorfismo ya que el wizard y el witch son los únicos que pueden
+            //obtener items de timpo mágico
+            if ((GetType() != typeof(Wizard) && GetType() != typeof(Witch)) && (item is MagicItem)) 
                 throw new CannotAddItemException(
                     "No puedes agregar un item mágico a un personaje que no sea un Wizard o un Witch");
             
-            Items.Add(abstractItem);
+            Items.Add(item);
             UpdateStats();
         }
 
-        private void UpdateStats()
+        protected void UpdateStats()
         {
             this.Hp = this.DefaultStats[0];
             this.Damage = this.DefaultStats[1];
             this.Defense = this.DefaultStats[2];
             foreach (var item in this.Items)
             {
-                if (item.IsMagic && GetType() != typeof(Wizard)) continue;
+                //Rompo nuevamente con polimorfismo para poder agregar la funcion especial
+                //de la DarkSword con las ElementalGem
+                if (item is ElementalGem)
+                {
+                    foreach (var item2 in Items)
+                    {
+                        if (item2 is DarkSword)
+                        {
+                            Items.Add(((DarkSword) item2).Combine((ElementalGem) item));
+                            Items.Remove(item);
+                            Items.Remove(item2);
+                            UpdateStats();
+                            return;
+                        }
+                    }
+                }  
+                
+                //Rompo nuevamente con polimorfismo para poder agregar la funcion especial
+                //del SpellBook con los Spells
+                if (item is Spell)
+                {
+                    foreach (var item2 in Items)
+                    {
+                        if (item2 is SpellBook)
+                        {
+                            Items.Add(((SpellBook) item2).Combine((Spell) item));
+                            Items.Remove(item);
+                            Items.Remove(item2);
+                            UpdateStats();
+                            return;
+                        }
+                    }
+                }
+
                 this.Damage += item.DamageValue;
                 this.Defense += item.DefenseValue;
                 this.Hp += item.HealthValue;
             }
         }
+    
 
         public void GiveItem(AbstractCharacter character, AbstractItem item)
         {

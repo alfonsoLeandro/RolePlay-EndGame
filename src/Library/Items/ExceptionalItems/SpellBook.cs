@@ -1,29 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Library.Items.ExceptionalItems
 {
-    public class SpellBook : AbstractItem
+    public class SpellBook : MagicItem
     {
-        /// <summary>
-        /// Genera un nuevo spell book, el mismo puede contener valores de defensa,
-        /// ataque y salud entre -5 y 20
-        /// </summary>
-        public SpellBook() : base(false, true, RandomStat(), RandomStat(), RandomStat())
+        private List<Spell> Spells { get; } = new List<Spell>();
+        public SpellBook(List<Spell> spells) : base(0, 0, 0)
         {
-        }
-
-        /// <summary>
-        /// Genera una valor random entre -5 y 20 para utilizar en cada una de las estadísticas del spell book.
-        /// </summary>
-        /// <returns>Un valor entre -5 y 20</returns>
-        private static int RandomStat()
-        {
-            return new Random().Next(20 + 6) - 5;
+            foreach (var spell in spells)
+            {
+                this.DamageValue += spell.DamageValue;
+                this.DefenseValue += spell.DefenseValue;
+                this.HealthValue += spell.HealthValue;
+                Spells.Add(spell);
+            }
         }
 
         public override string ToString()
         {
             return "Spell book";
+        }
+ 
+        public SpellBook Combine(Spell spell)
+        {
+            var spells = this.Spells;
+            spells.Add(spell);
+            return new SpellBook(spells);
         }
     }
 }

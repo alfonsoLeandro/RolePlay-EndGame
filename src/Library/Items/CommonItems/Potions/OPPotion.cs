@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.CommonItems.Potions
 {
-    public class OPPotion : AbstractItem
+    public class OPPotion : NonMagicItem
     {
-        public OPPotion(int defenseValue, int damageValue, int healthValue) : base(false, false, defenseValue, damageValue, healthValue)
+        public OPPotion(int defenseValue, int damageValue, int healthValue) : base(defenseValue, damageValue, healthValue)
         {
         }
 

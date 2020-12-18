@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.CommonItems.Potions
 {
-    public class StrengthPotion : AbstractItem
+    public class StrengthPotion : NonMagicItem
     {
-        public StrengthPotion(int damageValue) : base(false, false, 0, 10, 0)
+        public StrengthPotion(int damageValue) : base(0, damageValue, 0)
         {
         }
 

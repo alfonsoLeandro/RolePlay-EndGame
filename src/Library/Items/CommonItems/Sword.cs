@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.CommonItems
 {
-    public class Sword : AbstractItem
+    public class Sword : NonMagicItem
     {
-        public Sword(int damageValue) : base(false, false, 0, damageValue, 0)
+        public Sword(int damageValue) : base(0, damageValue, 0)
         {
         }
 

@@ -1,8 +1,8 @@
 ﻿namespace Library.Items.MagicItems
 {
-    public class ForbiddenStaff : AbstractItem
+    public class ForbiddenStaff : MagicItem
     {
-        public ForbiddenStaff(int damageValue, int healthValue) : base(false, true, 0, damageValue, healthValue)
+        public ForbiddenStaff(int damageValue, int healthValue) : base( 0, damageValue, healthValue)
         {
         }
 
