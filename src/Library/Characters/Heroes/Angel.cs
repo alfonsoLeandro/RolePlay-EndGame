@@ -9,6 +9,10 @@ namespace Library.Characters.Heroes
         {
         }
 
+        public Angel(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+
         public override string ToString()
         {
             return "Holy angel";

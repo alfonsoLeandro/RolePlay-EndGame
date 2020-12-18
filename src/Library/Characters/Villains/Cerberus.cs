@@ -5,6 +5,10 @@ namespace Library.Characters.Villains
 {
     public class Cerberus : AbstractVillain
     {
+        public Cerberus(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
         public Cerberus(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }

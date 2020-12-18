@@ -9,6 +9,10 @@ namespace Library.Characters.Villains
 {
     public abstract class AbstractVillain : AbstractCharacter
     {
+        public AbstractVillain(int hp, int damage, int defense) : base(hp, damage, defense)
+        {
+        }
+        
         public AbstractVillain(int hp, int damage, int defense, List<AbstractItem> items) : base(hp, damage, defense, items)
         {
         }
