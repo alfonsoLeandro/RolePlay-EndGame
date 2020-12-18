@@ -2,7 +2,7 @@
 {
     public class OPPotion : NonMagicItem
     {
-        public OPPotion(int defenseValue, int damageValue, int healthValue) : base(defenseValue, damageValue, healthValue)
+        public OPPotion(int defenseValue, int damageValue, int healthValue) : base(defenseValue*2, damageValue*2, healthValue*2)
         {
         }
 

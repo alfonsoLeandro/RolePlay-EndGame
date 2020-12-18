@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Library.Characters.Heroes;
 using Library.Characters.Villains;
 
-namespace Library
+namespace Library.CampoDeLosCaidos
 {
-    public class HonorAndGlory
+    public class TorreDeLosCaidos
     {
-        private static HonorAndGlory instance;
+        private static TorreDeLosCaidos instance;
         public List<string> ArbolDeLosMilDias { get; }
         public int PiedraEterna { get; set; }
         public Dictionary<string,string> LibroDeLaSabiduria { get; set; }
 
-        private HonorAndGlory()
+        private TorreDeLosCaidos()
         {
             ArbolDeLosMilDias = new List<string>();
             PiedraEterna = 0;
             LibroDeLaSabiduria = new Dictionary<string, string>();
         }
 
-        public static HonorAndGlory GetInstance()
+        public static TorreDeLosCaidos GetInstance()
         {
             if (instance == null)
             {
-                instance = new HonorAndGlory();
+                instance = new TorreDeLosCaidos();
             }
 
             return instance;

@@ -8,8 +8,8 @@ namespace Library.Encounters
 {
     public class ExchangeEncounter : IEncounter
     {
-        private AbstractCharacter Sharer { get; set; }
-        private AbstractCharacter ToShare { get; set; }
+        private AbstractCharacter Sharer { get; }
+        private AbstractCharacter ToShare { get; }
         private ILogger Logger { get; }
         
         

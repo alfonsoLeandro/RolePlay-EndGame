@@ -15,28 +15,19 @@
 
         public CompoundNonMagicItem Combine(Sword sword)
         {
-            return new CompoundNonMagicItem(
-                0,
-                this.DamageValue+sword.DamageValue,
-                0,
+            return new CompoundNonMagicItem(this, sword,
                 "Crossed swords");
         }    
         
         public CompoundNonMagicItem Combine(Shield shield)
         {
-            return new CompoundNonMagicItem(
-                shield.DefenseValue,
-                this.DamageValue,
-                0,
+            return new CompoundNonMagicItem(this, shield,
                 "Sword and shield");
         }    
         
         public CompoundNonMagicItem Combine(SharpShield shield)
         {
-            return new CompoundNonMagicItem(
-                shield.DefenseValue,
-                this.DamageValue+shield.DamageValue,
-                0,
+            return new CompoundNonMagicItem(this, shield,
                 "Sword and sharp shield");
         }
     }

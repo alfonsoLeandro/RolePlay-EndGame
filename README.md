@@ -12,6 +12,9 @@ Resumen del proyecto:
         1. [Héroes](#heroes)
         2. [Villanos](#villains)
     2. [Items](#items)
+        1. [Items mágicos](#magic)
+        2. [Items NO mágicos](#nonmagic)
+        3. [Items excepcionales](#exceptional)
 2. [Diseño e implementación](#diseño)
     1. [Patrones utilizados](#patrones)
         1. [Singleton](#singleton)
@@ -37,6 +40,10 @@ Para ello nuestros héroes se enfrentaran a sus enemigos en encuentros a sangre 
 <a name="chars"></a>
 ## 1.i Personajes
 Existen dos bandos: los héroes y los villanos. Estos bandos son enemigos.
+Cada personaje cuenta con 3 estadísticas. Éstas son: puntos de vida o salud (se ve directamente afectada cuando un personaje es atacado),
+defensa (al ser atacado, la defensa puede tener un papel importante en prevenir que el personaje sea afectado por el golpe (Se elige un numero random entre
+ 0 y los puntos de defensa del personaje)) y finalmente el ataque, es este valor el que se usa durante los ataques. Cada personaje tiene un valor por defecto para
+ cada estadística y son los [items](#items) los que se encargan de "boostear" (incrementar) cada una de ellas dependiendo del item.
 
 <a name="heroes"></a>
 ### 1.i.a Héroes
@@ -65,4 +72,37 @@ El bando de los villanos está conformado por:
 - Werewolf: Una mezcla entre hombre y lobo que resulta muy peligroso para cualquier heroe de carne y hueso.
 - Witch: Es la contra de los hechiceros por parte de los villanos ya que también puede portar items mágicos.
 
-###
+<a name="items"></a>
+## 1.ii Items
+Existen tres grandes tipos de items: Los items mágicos, los no mágicos y los excepcionales. Estos últimos son un 
+caso especial de items no mágicos, ya que son considerados por naturaleza no mágicos pero aún así tienen habilidades especiales.
+Además de estos 3 tipos de items se podría considerar otro pequeño tipo de item
+Cualquier clase de item puede ser portado tanto por heroes como villanos, la única diferencia entre los items mágicos y
+los no mágicos siendo que solamente los personajes de tipo "Wizard" y "Witch" pueden portar items de tipo mágico.
+
+<a name="magic"></a>
+### 1.ii.a Items mágicos
+Los items mágicos pueden ser portados tanto por un Wizard como por un Witch únicamente. Estos son:
+- FireBall: Una bola de fuego valyrio, un tipo de fuego especial que solamente puede ser manipulado por alguien con los conocimientos necesarios.
+- ForbiddenStaff: Una vara demasiado poderosa como para que un simple mortal la tenga en su posesión.
+- ForceField: Un campo de fuerza alrrededor del personaje que aumenta sus estadísticas de defensa y HP.
+- ProtectingBelt: Un cinto de tecnología avanzada que permite defender al portador de ataques varios.
+
+
+<a name="nonmagic"></a>
+### 1.ii.b Items NO mágicos
+Estos son los items que llamaríamos "comunes", items que puede portar cualquier personaje. Son los siguientes:
+- Shield: Un escudo de madera con bordes del mejor acero.
+- SharpShield: Un escudo de madera con borde del mejor acero, forjado y afilado por el mejor herrero del condado.
+- Sword: Puede parecer una simple espada pero es más que eso, es una espada de acero valyrio, el metal más fuerte jamás conocido por el hombre.
+- Trident: El mismísimo tridente de poseidón.
+- Pociones: Dentro de estos items existen pociones, dentro de ellas las siguientes:
+    - CuringPotion: Una poción curativa, agrega HP a cualquiera que la tenga en su posesión.
+    - OPPotion: Una poción demasiado poderosa para cualquiera (OverPowered), puede mejorar hasta las 3 estadisticas de un personaje y sus efectos finales se ven multiplicados 3 veces a los ingresados.
+    - RecoveryPotion: Ayuda a un personaje a salir de un momento dificil con un boost de HP y defensa.
+    - ResistancePotion: Ayuda a la defensa de un personaje.
+    - StrengthPotion: Incrementa la fuerza total de un personaje, por ende afectando directamente su capacidad de ataque.
+
+
+<a name="exceptional"></a>
+### 1.ii.c Items excepcionales

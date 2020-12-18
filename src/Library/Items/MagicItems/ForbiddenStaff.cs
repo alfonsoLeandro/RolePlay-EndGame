@@ -10,5 +10,13 @@
         {
             return "Forbidden staff";
         }
+        
+        //Combinations: Staff+FireBall
+        
+        public CompoundMagicItem Combine(FireBall fireBall)
+        {
+            return new CompoundMagicItem(this, fireBall, 
+                "Fireball shooting forbidden staff");
+        }
     }
 }

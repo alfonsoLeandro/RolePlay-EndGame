@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.CampoDeLosCaidos;
 using Library.Characters.Villains;
 using Library.Exceptions;
 using Library.Items;
@@ -20,7 +21,7 @@ namespace Library.Characters.Heroes
             
             if (!villain.IsAlive())
             {
-                HonorAndGlory.GetInstance().HeroKilledVillain(this, villain);
+                TorreDeLosCaidos.GetInstance().HeroKilledVillain(this, villain);
             }
         }
 
