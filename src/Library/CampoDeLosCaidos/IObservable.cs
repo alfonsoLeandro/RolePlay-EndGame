@@ -2,6 +2,9 @@
 
 namespace Library.CampoDeLosCaidos
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IObservable
     {
         void Subscribe(IObserver observer);

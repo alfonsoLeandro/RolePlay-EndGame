@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Library.Characters.Heroes;
 using Library.Characters.Villains;
 using Library.Exceptions;
@@ -15,6 +16,7 @@ namespace Library.Characters
         public int Defense { get; private set; }
         public int Vp { get; set; }
         public List<AbstractItem> Items { get; }
+        public int Id {get;} = new Random().Next(9999);
 
         protected AbstractCharacter(int hp, int damage, int defense)
             : this(hp, damage, defense, new List<AbstractItem>())
@@ -48,14 +50,14 @@ namespace Library.Characters
 
         public void AddItems(List<AbstractItem> items)
         {
-            //Guardo el bool que verifica si este item es un wizard
+            //Guardo el bool que verifica si este personaje es mágico
             //para no tener que verificarlo en cada repeticion del for.
-            //Rompo con patrón polimorfismo ya que el wizard y el brujo son
+            //Rompo con patrón polimorfismo ya que los personajes mágicos son
             //los únicos que pueden obtener items de timpo mágico
-            var wizard = GetType() == typeof(Wizard) || GetType() == typeof(Witch);
+            var isMagic = this is AbstractMagicHero || this is AbstractMagicVillain;
             foreach (var item in items)
             {
-                if (wizard || !(item is MagicItem))
+                if (isMagic || !(item is MagicItem))
                 {
                     Items.Add(item);
                 }
@@ -65,11 +67,11 @@ namespace Library.Characters
 
         public void AddItem(AbstractItem item)
         {
-            //Rompo con patrón polimorfismo ya que el wizard y el witch son los únicos que pueden
+            //Rompo con patrón polimorfismo ya que los personajes mágicos son los únicos que pueden
             //obtener items de timpo mágico
-            if ((GetType() != typeof(Wizard) && GetType() != typeof(Witch)) && (item is MagicItem)) 
+            if ((!(this is AbstractMagicHero) && !(this is AbstractMagicVillain)) && (item is MagicItem)) 
                 throw new CannotAddItemException(
-                    "No puedes agregar un item mágico a un personaje que no sea un Wizard o un Witch");
+                    "No puedes agregar un item mágico a un personaje que no sea mágico");
             
             Items.Add(item);
             UpdateStats();

@@ -3,9 +3,9 @@ using Library.Items;
 
 namespace Library.Characters.Heroes
 {
-    public class Wizard : AbstractHero
+    public class Wizard : AbstractMagicHero
     {
-        public static Dictionary<string,string> LibroDeLaSabiduria { get; } = new Dictionary<string, string>();
+        public static Dictionary<string,List<string>> LibroDeLaSabiduria { get; } = new Dictionary<string, List<string>>();
         
         public Wizard(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
         {
@@ -24,7 +24,15 @@ namespace Library.Characters.Heroes
         public override void Update(AbstractCharacter killer, AbstractCharacter killed)
         {
             base.Update(killer, killed);
-            LibroDeLaSabiduria.Add(killer.ToString(), killed.ToString());
+            string killerName = killer.ToString() + $"({killer.Id})";
+            if (LibroDeLaSabiduria.ContainsKey(killerName))
+            {
+                LibroDeLaSabiduria[killerName].Add(killed.ToString());
+            }
+            else
+            { 
+                LibroDeLaSabiduria.Add(killerName, new List<string>(){killed.ToString()});
+            }
         }
     }
 }

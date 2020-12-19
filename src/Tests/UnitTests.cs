@@ -201,7 +201,7 @@ namespace Library.Tests
             Assert.IsTrue(knight.Damage.Equals(10+gem.DamageValue) 
                           && knight.Defense.Equals(10+gem.DefenseValue)
                           && knight.Hp.Equals(10+gem.HealthValue));
-        }   
+        }
         
         [TestCase]
         public void Successfully_recognize_gem_and_dark_sword_and_combine_them_after_creation()
@@ -580,7 +580,20 @@ namespace Library.Tests
 
             
             Assert.IsTrue((heroesAlive == 0 && villainsAlive == 1)
-                || (villainsAlive == 0 && heroesAlive == 1));
+                          || (villainsAlive == 0 && heroesAlive == 1));
+        }
+
+        [TestCase]
+        public void Libro_de_la_sabiduria_works_correctly()
+        {
+            Elf elf = new Elf(10,20,30);
+            Satan satan = new Satan(100,100,100);
+            Wizard wizard = new Wizard(1,1,1);
+            
+            satan.Attack(elf);
+            
+            Assert.IsTrue(!elf.IsAlive()
+                          && Wizard.LibroDeLaSabiduria[satan.ToString()+$"({satan.Id})"].Contains(elf.ToString()));
         }
     }
 }
