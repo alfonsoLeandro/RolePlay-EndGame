@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.CampoDeLosCaidos;
 using Library.Characters.Heroes;
 using Library.Characters.Villains;
 using Library.Exceptions;
@@ -18,11 +19,6 @@ namespace Library.Characters
         public List<AbstractItem> Items { get; }
         public int Id {get;} = new Random().Next(9999);
 
-        protected AbstractCharacter(int hp, int damage, int defense)
-            : this(hp, damage, defense, new List<AbstractItem>())
-        {
-        }
-        
         protected AbstractCharacter(int hp, int damage, int defense, List<AbstractItem> items)
         {
             this.Hp = hp;
@@ -51,9 +47,9 @@ namespace Library.Characters
         public void AddItems(List<AbstractItem> items)
         {
             //Guardo el bool que verifica si este personaje es mágico
-            //para no tener que verificarlo en cada repeticion del for.
+            //para no tener que verificarlo en cada repetición del for.
             //Rompo con patrón polimorfismo ya que los personajes mágicos son
-            //los únicos que pueden obtener items de timpo mágico
+            //los únicos que pueden obtener items de tipo mágico
             var isMagic = this is AbstractMagicHero || this is AbstractMagicVillain;
             foreach (var item in items)
             {
@@ -84,7 +80,7 @@ namespace Library.Characters
             this.Defense = this.DefaultStats[2];
             foreach (var item in this.Items)
             {
-                //Rompo nuevamente con polimorfismo para poder agregar la funcion especial
+                //Rompo nuevamente con polimorfismo para poder agregar la función especial
                 //de la DarkSword con las ElementalGem
                 if (item is ElementalGem)
                 {
@@ -99,12 +95,12 @@ namespace Library.Characters
                             return;
                         }
                     }
-                    //Las ElementalGem por si solas no deberian agregar estadisticas directamente
+                    //Las ElementalGem por si solas no debieran agregar estadísticas directamente
                     //al personaje si no a la DarkSword
                     continue;
                 }  
                 
-                //Rompo nuevamente con polimorfismo para poder agregar la funcion especial
+                //Rompo nuevamente con polimorfismo para poder agregar la función especial
                 //del SpellBook con los Spells
                 if (item is Spell)
                 {
@@ -119,7 +115,7 @@ namespace Library.Characters
                             return;
                         }
                     }
-                    //Los spells por si solos no deberian agregar estadisticas directamente
+                    //Los spells por si solos no debieran agregar estadísticas directamente
                     //al personaje si no al SpellBook
                     continue;
                 }
@@ -157,7 +153,11 @@ namespace Library.Characters
             UpdateStats();
         }
 
-
+        /// <summary>
+        /// Obtiene el nombre de este héroe, utilizado en batallas y registros de Honor&Glory.
+        /// </summary>
+        /// <returns>El nombre de este héroe.</returns>
+        /// <see cref="TorreDeLosCaidos"/>
         public abstract override string ToString();
     }
 }

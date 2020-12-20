@@ -3,7 +3,7 @@ using Library.Items;
 
 namespace Library.Characters.Villains
 {
-    public class Witch : AbstractVillain
+    public class Witch : AbstractMagicVillain
     {
         public Witch(int hp, int damage, int defense) : base(hp, damage, defense)
         {

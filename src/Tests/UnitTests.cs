@@ -61,7 +61,6 @@ namespace Library.Tests
         [TestCase]
         public void UnSuccessful_exchange()
         {
-            bool failed = false;
             Dwarf dwarf = new Dwarf(9, 1, 0);
             Demon demon = new Demon(23,6547, 24);
             
@@ -70,16 +69,8 @@ namespace Library.Tests
             
             ExchangeEncounter encounter = new ExchangeEncounter(dwarf, demon, new Shield(82387));
             
-            try
-            {
-                encounter.RunEncounter();
-            }
-            catch (Exception e)
-            {
-                failed = true;
-            }
                 
-            Assert.IsTrue(failed);
+            Assert.Catch<NoItemsToShareException>(() => encounter.RunEncounter());
         }
         
         
@@ -128,39 +119,20 @@ namespace Library.Tests
         [TestCase]
         public void Cannot_add_magic_item_to_non_wizard_character()
         {
-            bool failed = false;
             SpellBook spellBook = new SpellBook(new List<Spell>());
             Elf elf = new Elf(1,1,1);
         
-            try
-            {
-                elf.AddItem(spellBook);
-            }
-            catch (CannotAddItemException e)
-            {
-                failed = true;
-            }
             
-            Assert.IsTrue(failed);
+            Assert.Catch<CannotAddItemException>(() => elf.AddItem(spellBook));
         }  
         
         [TestCase]
         public void Can_add_magic_item_to_wizard()
         {
-            bool failed = false;
             ForbiddenStaff staff = new ForbiddenStaff(70,90);
             Wizard wizard = new Wizard(1,1,1);
 
-            try
-            {
-                wizard.AddItem(staff);
-            }
-            catch (CannotAddItemException e)
-            {
-                failed = true;
-            }
-            
-            Assert.IsFalse(failed);
+            Assert.Catch<CannotAddItemException>(() => wizard.AddItem(staff));
         }     
         
         [TestCase]
@@ -263,7 +235,7 @@ namespace Library.Tests
             {
                 knight.AddItem(staff.Combine(fireBall));
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
                 failed = true;
             }
@@ -286,7 +258,7 @@ namespace Library.Tests
             {
                 knight.AddItem(fireBall.Combine(staff));
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
                 failed = true;
             }
@@ -375,20 +347,11 @@ namespace Library.Tests
         [TestCase]
         public void Removing_non_existent_item_fails()
         {
-            bool failed = false;
             Shield shield = new Shield(9);
             Knight knight = new Knight(10,0,0);
 
-            try
-            {
-                knight.RemoveItem(shield);
-            }
-            catch (Exception e)
-            {
-                failed = true;
-            }
             
-            Assert.IsTrue(failed);
+            Assert.Catch<DoesNotContainItemException>(() => knight.RemoveItem(shield));
         }
         
         //TEST 9: Cambié el modo en que funciona la defensa, para agregar un "toque" o "salt" y para que no funcione

@@ -32,7 +32,7 @@ namespace Library.Scenarios
                         WriteToFile("Villains won!");
                     }
                 }
-                catch (Exception e)
+                catch (Exception ignored)
                 {
                     WriteToFile("Encounter failed");
                 }

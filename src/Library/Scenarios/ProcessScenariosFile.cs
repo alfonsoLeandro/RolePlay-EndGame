@@ -21,7 +21,7 @@ namespace Library.Scenarios
             {
                 streamReader = new StreamReader(fileName);
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
                 RpCore.Instance.Logger.Log("Ha ocurrido un error al intentar procesar el archivo.");
                 return new List<BattleEncounter>();

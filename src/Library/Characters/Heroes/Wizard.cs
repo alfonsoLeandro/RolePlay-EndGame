@@ -7,7 +7,7 @@ namespace Library.Characters.Heroes
     {
         public static Dictionary<string,List<string>> LibroDeLaSabiduria { get; } = new Dictionary<string, List<string>>();
         
-        public Wizard(int hp, int damage, int defense) : this(hp, damage, defense, new List<AbstractItem>())
+        public Wizard(int hp, int damage, int defense) : base(hp, damage, defense)
         {
         }
         
