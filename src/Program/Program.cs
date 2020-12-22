@@ -18,9 +18,9 @@ namespace RolePlay_EndGame
     {
         static void Main(string[] args)
         {
-            RpCore.Initialize(new ConsoleEventLogger());
+            RpCore.Initialize(new ConsoleEventLogger(),
+                Path.Combine("..","..","..","..","..","src","Program","results.csv"));
 
-            RpCore.Instance.ResultsFile = Path.Combine("..","..","..","..","..","src","Program","results.csv");
 
             
             //var scenariosData = new ProcessScenariosFile().Process();

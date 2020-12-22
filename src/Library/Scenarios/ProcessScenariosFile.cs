@@ -6,6 +6,10 @@ using Library.Encounters;
 
 namespace Library.Scenarios
 {
+    /// <summary>
+    /// Implementación de <see cref="IProcessScenarios"/> utilizando un archivo como fuente
+    /// de la información.
+    /// </summary>
     public class ProcessScenariosFile : IProcessScenarios
     {
         public List<BattleEncounter> Process()
