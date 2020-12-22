@@ -6,18 +6,43 @@ using Library.Exceptions;
 
 namespace Library.Encounters
 {
+    /// <summary>
+    /// Encuentro de tipo batalla entre un grupo de héroes de al menos un héroe
+    /// y un grupo de villanos de al menos un villano.
+    /// </summary>
     public class BattleEncounter : IEncounter
     {
+        /// <summary>
+        /// La lista de héroes a participar de este encuentro.
+        /// </summary>
         public List<AbstractHero> Heroes { get; }
+        /// <summary>
+        /// La lista de villanos a participar de este encuentro.
+        /// </summary>
         public List<AbstractVillain> Villains { get; }
+        /// <summary>
+        /// El <see cref="ILogger"/> obtenido desde <see cref="RpCore"/>.
+        /// </summary>
         private ILogger Logger { get; }
         
 
+        /// <summary>
+        /// Constructor utilizado para crear batallas entre bandos de 1 personaje.
+        /// Se aplica el patrón creator ya que en este constructor se crean las nuevas
+        /// listas que contienen a cada uno de los personajes.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="villain"></param>
         public BattleEncounter(AbstractHero hero, AbstractVillain villain)
         : this(new List<AbstractHero>(){hero}, new List<AbstractVillain>(){villain})
         {
         }
         
+        /// <summary>
+        /// Crea un nuevo encuentro de tipo batalla entre dos bandos enemigos.
+        /// </summary>
+        /// <param name="heroes">La lista de personajes de tipo héroe.</param>
+        /// <param name="villains">La lista de personajes de tipo villano.</param>
         public BattleEncounter(List<AbstractHero> heroes, List<AbstractVillain> villains)
         {
             Heroes = heroes;
@@ -26,7 +51,11 @@ namespace Library.Encounters
         }
 
 
-
+        /// <summary>
+        /// Ejecuta el encuentro de tipo batalla.
+        /// </summary>
+        /// <returns>True si el bando ganador fue el de los héroes. False en otro caso.</returns>
+        /// <exception cref="NotEnoughParticipantsInBattleException">Arrojado si cauqluiera de los dos bandos no cuenta con personajes.</exception>
         public bool RunEncounter()
         {
             Logger.Log($"Un encuentro de combate ha comenzado. {Heroes.Count} heroes y {Villains.Count} villanos");
@@ -119,9 +148,11 @@ namespace Library.Encounters
             
         }
         
-        
-        
 
+        /// <summary>
+        /// Verifica si todos los héroes se encuentran muertos.
+        /// </summary>
+        /// <returns>True si todos los héroes se encuentran sin vida.</returns>
         private bool AllHeroesDead()
         {
             foreach (var hero in Heroes)
@@ -132,6 +163,10 @@ namespace Library.Encounters
             return true;
         } 
         
+        /// <summary>
+        /// Verifica si todos los villanos se encuentran muertos.
+        /// </summary>
+        /// <returns>True si todos los villanos se encuentran sin vida.</returns>
         private bool AllVillainsDead()
         {
             foreach (var villain in Villains)
