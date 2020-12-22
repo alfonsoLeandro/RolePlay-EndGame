@@ -5,7 +5,6 @@ using Library.Items;
 
 namespace Library.Characters.Heroes
 {
-    
     /// <summary>
     /// Clase destinada a ser heredada por clases que representen a héroes que puedan poseer items
     /// de tipo mágico (<see cref="MagicItem"/>).

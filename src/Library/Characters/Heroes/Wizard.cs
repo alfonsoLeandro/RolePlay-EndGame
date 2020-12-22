@@ -5,9 +5,9 @@ using Library.Items;
 namespace Library.Characters.Heroes
 {
     /// <summary>
-    /// Clase que representa a un tipo de héroe llamado Wizard.
+    /// Clase que representa a un tipo de héroe mágico llamado Wizard.
     /// </summary>
-    /// <seealso cref="AbstractHero"/>
+    /// <seealso cref="AbstractMagicHero"/>
     public class Wizard : AbstractMagicHero
     {
         
